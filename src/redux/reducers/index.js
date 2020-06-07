@@ -1,19 +1,31 @@
-import { ADD_REMINDER } from '../types/index'
+import { ADD_REMINDER, DELETE_REMINDER, CLEAR_REMINDERS } from '../types/index'
 
-const reminder = action => {
-  return {
-    text: action.payload,
-    id: Math.random(),
-  }
-}
+const save = array => localStorage.setItem('reminders', JSON.stringify(array))
 
 const reminders = (state = [], action) => {
+  const { text, dueDate, id } = action
   let reminders = null
+  state = JSON.parse(localStorage.getItem('reminders')) || []
 
   switch (action.type) {
     case ADD_REMINDER:
-      reminders = [...state, reminder(action)]
-      console.log('reducer reminders', reminders)
+      reminders = [
+        ...state,
+        {
+          id: Math.random(),
+          text,
+          dueDate,
+        },
+      ]
+      save(reminders)
+      return reminders
+    case DELETE_REMINDER:
+      reminders = state.filter(reminder => reminder.id !== id)
+      save(reminders)
+      return reminders
+    case CLEAR_REMINDERS:
+      reminders = []
+      save(reminders)
       return reminders
     default:
       return state
