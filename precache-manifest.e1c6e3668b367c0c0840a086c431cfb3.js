@@ -1,11 +1,11 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "912866822c42bd33b088b0ec1a240ea4",
+    "revision": "5a59765bbc1f4d1c374ba1dbd2832dfe",
     "url": "/reminder-app-redux-tutorial/index.html"
   },
   {
-    "revision": "8620164c60f942a31d72",
-    "url": "/reminder-app-redux-tutorial/static/css/main.76e27cc9.chunk.css"
+    "revision": "800dd918409fbeb0df0b",
+    "url": "/reminder-app-redux-tutorial/static/css/main.498d56c7.chunk.css"
   },
   {
     "revision": "27a199722d75b30eac70",
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/reminder-app-redux-tutorial/static/js/2.bf6c4a3a.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "8620164c60f942a31d72",
-    "url": "/reminder-app-redux-tutorial/static/js/main.6b544777.chunk.js"
+    "revision": "800dd918409fbeb0df0b",
+    "url": "/reminder-app-redux-tutorial/static/js/main.5881111a.chunk.js"
   },
   {
     "revision": "49f96f438b0fc936f080",
