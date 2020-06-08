@@ -29,12 +29,16 @@ class App extends Component {
   renderReminders() {
     const { reminders } = this.props
     return (
-      <ul>
+      <ul className="reminders-list">
         {reminders.map(reminder => (
           <li key={reminder.id}>
-            {reminder.text}
-            <button onClick={() => this.delete(reminder.id)}>&#x2715;</button>
-            <p>{reminder.dueDate && moment(new Date(reminder.dueDate)).fromNow()}</p>
+            <div className="text">
+              <p>{reminder.text}</p>
+              <p className="due-date">{reminder.dueDate && moment(new Date(reminder.dueDate)).fromNow()}</p>
+            </div>
+            <button className="remove" title="Remove reminder" onClick={() => this.delete(reminder.id)}>
+              &#x2715;
+            </button>
           </li>
         ))}
       </ul>
@@ -46,18 +50,28 @@ class App extends Component {
       <main className="App">
         <header>Reminder App</header>
         <form>
-          <input placeholder="Add a reminder" onChange={e => this.setState({ text: e.target.value })} />
           <input
-            title="Add due date"
-            type="datetime-local"
-            onChange={e => this.setState({ dueDate: e.target.value })}
+            className="reminder-input"
+            placeholder="Type a reminder ..."
+            onChange={e => this.setState({ text: e.target.value })}
           />
-          <button type="button" onClick={() => this.add()}>
-            Add reminder
-          </button>
-          <button type="button" onClick={() => this.clearAll()}>
-            Clear all reminders
-          </button>
+          <div className="date-group">
+            <label htmlFor="date">Add date</label>
+            <input
+              id="date"
+              title="Add due date"
+              type="datetime-local"
+              onChange={e => this.setState({ dueDate: e.target.value })}
+            />
+          </div>
+          <div className="button-group">
+            <button type="button" onClick={() => this.add()}>
+              Save reminder
+            </button>
+            <button className="delete" type="button" onClick={() => this.clearAll()}>
+              Clear all reminders
+            </button>
+          </div>
         </form>
         {this.renderReminders()}
       </main>
