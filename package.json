@@ -2,6 +2,7 @@
   "name": "reminder-app-redux-tutorial",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://syknapse.github.io/reminder-app-redux-tutorial/",
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
@@ -37,6 +38,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "lint": "eslint ./src --fix"
+    "lint": "eslint ./src --fix",
+    "predeploy": "yarn build",
+    "deploy": "gh-pages -d build"
   }
 }
