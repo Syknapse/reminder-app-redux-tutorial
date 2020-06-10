@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/reminder-app-redux-tutorial/static/css/main.498d56c7.chunk.css",
-    "main.js": "/reminder-app-redux-tutorial/static/js/main.5881111a.chunk.js",
-    "main.js.map": "/reminder-app-redux-tutorial/static/js/main.5881111a.chunk.js.map",
+    "main.css": "/reminder-app-redux-tutorial/static/css/main.117f7519.chunk.css",
+    "main.js": "/reminder-app-redux-tutorial/static/js/main.a494b1c4.chunk.js",
+    "main.js.map": "/reminder-app-redux-tutorial/static/js/main.a494b1c4.chunk.js.map",
     "runtime-main.js": "/reminder-app-redux-tutorial/static/js/runtime-main.e8f0d6a0.js",
     "runtime-main.js.map": "/reminder-app-redux-tutorial/static/js/runtime-main.e8f0d6a0.js.map",
-    "static/js/2.bf6c4a3a.chunk.js": "/reminder-app-redux-tutorial/static/js/2.bf6c4a3a.chunk.js",
-    "static/js/2.bf6c4a3a.chunk.js.map": "/reminder-app-redux-tutorial/static/js/2.bf6c4a3a.chunk.js.map",
+    "static/js/2.21d46ae1.chunk.js": "/reminder-app-redux-tutorial/static/js/2.21d46ae1.chunk.js",
+    "static/js/2.21d46ae1.chunk.js.map": "/reminder-app-redux-tutorial/static/js/2.21d46ae1.chunk.js.map",
     "index.html": "/reminder-app-redux-tutorial/index.html",
-    "precache-manifest.e1c6e3668b367c0c0840a086c431cfb3.js": "/reminder-app-redux-tutorial/precache-manifest.e1c6e3668b367c0c0840a086c431cfb3.js",
+    "precache-manifest.ef2861bca0347524e0e251aa8e5bdab6.js": "/reminder-app-redux-tutorial/precache-manifest.ef2861bca0347524e0e251aa8e5bdab6.js",
     "service-worker.js": "/reminder-app-redux-tutorial/service-worker.js",
-    "static/css/main.498d56c7.chunk.css.map": "/reminder-app-redux-tutorial/static/css/main.498d56c7.chunk.css.map",
-    "static/js/2.bf6c4a3a.chunk.js.LICENSE.txt": "/reminder-app-redux-tutorial/static/js/2.bf6c4a3a.chunk.js.LICENSE.txt"
+    "static/css/main.117f7519.chunk.css.map": "/reminder-app-redux-tutorial/static/css/main.117f7519.chunk.css.map",
+    "static/js/2.21d46ae1.chunk.js.LICENSE.txt": "/reminder-app-redux-tutorial/static/js/2.21d46ae1.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.e8f0d6a0.js",
-    "static/js/2.bf6c4a3a.chunk.js",
-    "static/css/main.498d56c7.chunk.css",
-    "static/js/main.5881111a.chunk.js"
+    "static/js/2.21d46ae1.chunk.js",
+    "static/css/main.117f7519.chunk.css",
+    "static/js/main.a494b1c4.chunk.js"
   ]
 }
