@@ -88,3 +88,8 @@ form {
 .reminders-list .due-date {
   color: gray;
 }
+
+.sort-group {
+  font-size: 0.8em;
+  padding: 8px 0;
+}

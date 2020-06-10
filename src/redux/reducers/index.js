@@ -1,9 +1,15 @@
-import { ADD_REMINDER, DELETE_REMINDER, CLEAR_REMINDERS } from '../types/index'
+import {
+  ADD_REMINDER,
+  DELETE_REMINDER,
+  CLEAR_REMINDERS,
+  SORT_BY_DATE_NEWEST,
+  SORT_BY_DATE_OLDEST,
+} from '../types/index'
 
 const save = array => localStorage.setItem('reminders', JSON.stringify(array))
 
 const reminders = (state = [], action) => {
-  const { text, dueDate, id } = action
+  const { text, dueDate, id, timestamp } = action
   let reminders = null
   state = JSON.parse(localStorage.getItem('reminders')) || []
 
@@ -15,6 +21,7 @@ const reminders = (state = [], action) => {
           id: Math.random(),
           text,
           dueDate,
+          timestamp,
         },
       ]
       save(reminders)
@@ -25,6 +32,14 @@ const reminders = (state = [], action) => {
       return reminders
     case CLEAR_REMINDERS:
       reminders = []
+      save(reminders)
+      return reminders
+    case SORT_BY_DATE_NEWEST:
+      reminders = state.sort((a, b) => b.timestamp - a.timestamp)
+      save(reminders)
+      return reminders
+    case SORT_BY_DATE_OLDEST:
+      reminders = state.sort((a, b) => a.timestamp - b.timestamp)
       save(reminders)
       return reminders
     default:
