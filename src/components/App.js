@@ -47,7 +47,7 @@ class App extends Component {
 
   render() {
     return (
-      <main className="App">
+      <main className="app">
         <header>Reminder App</header>
         <form>
           <input
