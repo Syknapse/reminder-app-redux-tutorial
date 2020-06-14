@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { addReminder, deleteReminder, clearReminders, sortByDateNewest, sortByDateOldest } from '../redux/actions/index'
+import { addReminder, deleteReminder, clearReminders, setFilter } from '../redux/actions/index'
 import moment from 'moment'
 import './App.css'
 
@@ -33,14 +33,27 @@ class App extends Component {
   }
 
   sort(e) {
-    e.target.value === 'oldest' ? this.props.sortByDateOldest() : this.props.sortByDateNewest()
+    this.props.setFilter(e.target.value)
+  }
+
+  filterReminders(reminders, filter) {
+    if (filter === 'newest') {
+      return reminders.sort((a, b) => b.timestamp - a.timestamp)
+    } else if (filter === 'oldest') {
+      return reminders.sort((a, b) => a.timestamp - b.timestamp)
+    } else {
+      return reminders
+    }
   }
 
   renderReminders() {
-    const { reminders } = this.props
+    console.log('props', this.props)
+    console.log('state', this.state)
+    const { reminders, filter } = this.props
+    const filteredReminders = this.filterReminders(reminders, filter)
     return (
       <ul className="reminders-list">
-        {reminders.map(reminder => (
+        {filteredReminders.map(reminder => (
           <li key={reminder.id}>
             <div className="text">
               <p>{reminder.text}</p>
@@ -92,7 +105,8 @@ class App extends Component {
 
 function mapStateToProps(state) {
   return {
-    reminders: state,
+    reminders: state.reminders,
+    filter: state.filter,
   }
 }
 
@@ -100,8 +114,7 @@ export default connect(mapStateToProps, {
   addReminder,
   deleteReminder,
   clearReminders,
-  sortByDateNewest,
-  sortByDateOldest,
+  setFilter,
 })(App)
 
 /* const App = () => {
