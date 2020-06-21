@@ -89,7 +89,26 @@ form {
   color: gray;
 }
 
-.sort-group {
+.filters-group {
   font-size: 0.8em;
   padding: 8px 0;
+}
+
+hr {
+  border: none;
+  border-top: 8px double rgba(0, 0, 0, 0.15);
+  margin: 0;
+  margin-top: 32px;
+  height: 42px;
+  overflow: visible;
+  text-align: center;
+  color: rgba(0, 0, 0, 0.45);
+}
+
+hr:after {
+  content: 'Past';
+  position: relative;
+  top: -16px;
+  padding: 0 8px;
+  background: #fff;
 }

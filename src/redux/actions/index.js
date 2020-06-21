@@ -1,4 +1,10 @@
-import { ADD_REMINDER, DELETE_REMINDER, CLEAR_REMINDERS, SET_FILTER } from '../types/index'
+import {
+  ADD_REMINDER,
+  DELETE_REMINDER,
+  CLEAR_REMINDERS,
+  SET_SORT_FILTER,
+  SET_VISIBILITY_FILTER,
+} from '../types/index'
 
 export const addReminder = (text, dueDate, timestamp) => {
   const action = {
@@ -25,9 +31,17 @@ export const clearReminders = () => {
   return action
 }
 
-export const setFilter = filter => {
+export const setSortFilter = filter => {
   const action = {
-    type: SET_FILTER,
+    type: SET_SORT_FILTER,
+    filter,
+  }
+  return action
+}
+
+export const setVisibilityFilter = filter => {
+  const action = {
+    type: SET_VISIBILITY_FILTER,
     filter,
   }
   return action

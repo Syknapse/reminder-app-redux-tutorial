@@ -1,7 +1,14 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { addReminder, deleteReminder, clearReminders, setFilter } from '../redux/actions/index'
+import {
+  addReminder,
+  deleteReminder,
+  clearReminders,
+  setSortFilter,
+  setVisibilityFilter,
+} from '../redux/actions/index'
 import moment from 'moment'
+import { FilterSelector, RemindersList } from './index'
 import './App.css'
 
 class App extends Component {
@@ -32,43 +39,75 @@ class App extends Component {
     this.setState({ dueDate: value, timestamp: moment(value).unix() })
   }
 
-  sort(e) {
-    this.props.setFilter(e.target.value)
+  applySortFilter(e) {
+    this.props.setSortFilter(e.target.value)
   }
 
-  filterReminders(reminders, filter) {
-    if (filter === 'newest') {
+  applyVisibilityFilter(e) {
+    this.props.setVisibilityFilter(e.target.value)
+  }
+
+  sortFilterTypes() {
+    return [
+      {
+        label: 'Newest',
+        type: 'NEWEST',
+      },
+      {
+        label: 'Oldest',
+        type: 'OLDEST',
+      },
+    ]
+  }
+
+  visibilityFilterTypes() {
+    return [
+      {
+        label: 'All',
+        type: 'ALL',
+      },
+      {
+        label: 'Pending',
+        type: 'PENDING',
+      },
+      {
+        label: 'Done',
+        type: 'DONE',
+      },
+    ]
+  }
+
+  filterReminders({ reminders, currentVisibilityFilter, currentSortFilter }) {
+    const visibleReminders = this.filterVisibleReminders(reminders, currentVisibilityFilter)
+    const sortedReminders = this.sortReminders(visibleReminders, currentSortFilter)
+    return sortedReminders
+  }
+
+  filterVisibleReminders(reminders, filter) {
+    if (filter === 'DONE') {
+      return reminders.filter(item => moment(new Date(item.timestamp)).isAfter())
+    } else if (filter === 'PENDING') {
+      return reminders.filter(item => moment(new Date(item.timestamp)).isBefore())
+    } else {
+      return reminders
+    }
+  }
+
+  sortReminders(reminders, filter) {
+    if (filter === 'NEWEST') {
       return reminders.sort((a, b) => b.timestamp - a.timestamp)
-    } else if (filter === 'oldest') {
+    } else if (filter === 'OLDEST') {
       return reminders.sort((a, b) => a.timestamp - b.timestamp)
     } else {
       return reminders
     }
   }
 
-  renderReminders() {
-    console.log('props', this.props)
-    console.log('state', this.state)
-    const { reminders, filter } = this.props
-    const filteredReminders = this.filterReminders(reminders, filter)
-    return (
-      <ul className="reminders-list">
-        {filteredReminders.map(reminder => (
-          <li key={reminder.id}>
-            <div className="text">
-              <p>{reminder.text}</p>
-              <p className="due-date">{reminder.dueDate && moment(new Date(reminder.dueDate)).fromNow()}</p>
-            </div>
-            <button className="remove" title="Remove reminder" onClick={() => this.delete(reminder.id)}>
-              &#x2715;
-            </button>
-          </li>
-        ))}
-      </ul>
-    )
-  }
-
   render() {
+    const sortFilterTypes = this.sortFilterTypes()
+    const visibilityFilterTypes = this.visibilityFilterTypes()
+    console.log(this.props)
+
     return (
       <main className="app">
         <header>Reminder App</header>
@@ -90,14 +129,22 @@ class App extends Component {
               Clear all reminders
             </button>
           </div>
-          <div className="sort-group" onChange={e => this.sort(e)}>
-            <label htmlFor="newest">Newest</label>
-            <input id="newest" type="radio" name="sort" value="newest" />
-            <label htmlFor="oldest">Oldest</label>
+          <div className="filters-group" onChange={e => this.applySortFilter(e)}>
+            {sortFilterTypes.map(filter => (
+              <FilterSelector key={filter.type} label={filter.label} type={filter.type} />
+            ))}
             <input id="oldest" type="radio" name="sort" value="oldest" />
           </div>
+          <div className="filters-group" onChange={e => this.applyVisibilityFilter(e)}>
+            {visibilityFilterTypes.map(filter => (
+              <FilterSelector key={filter.type} label={filter.label} type={filter.type} />
+            ))}
+          </div>
         </form>
-        {this.renderReminders()}
+        <RemindersList
+          reminders={this.filterReminders(this.props)}
+          onDelete={id => this.delete(id)}
+        />
       </main>
     )
   }
@@ -106,7 +153,8 @@ class App extends Component {
 function mapStateToProps(state) {
   return {
     reminders: state.reminders,
-    filter: state.filter,
+    currentSortFilter: state.currentSortFilter,
+    currentVisibilityFilter: state.currentVisibilityFilter,
   }
 }
 
@@ -114,30 +162,6 @@ export default connect(mapStateToProps, {
   addReminder,
   deleteReminder,
   clearReminders,
-  setFilter,
+  setSortFilter,
+  setVisibilityFilter,
 })(App)
-
-/* const App = () => {
-  const [text, setText] = useState('')
-
-  const add = e => {
-    // e.preventDefault()
-    console.log('button clicked -->text', text)
-    console.log(this)
-    addReminder(text)
-  }
-
-  return (
-    <main className="App">
-      <header>Reminder App</header>
-      <form>
-        <input placeholder="Reminder" onChange={e => setText(e.target.value)} />
-        <button type="button" onClick={e => add(e)}>
-          Add reminder
-        </button>
-      </form>
-    </main>
-  )
-}
-
-export default connect(null, { addReminder })(App) */

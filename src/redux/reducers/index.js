@@ -1,10 +1,12 @@
 import { combineReducers } from 'redux'
 import reminders from './reminders'
-import filter from './filter'
+import currentSortFilter from './currentSortFilter'
+import currentVisibilityFilter from './currentVisibilityFilter'
 
 const reducers = combineReducers({
   reminders,
-  filter,
+  currentSortFilter,
+  currentVisibilityFilter,
 })
 
 export default reducers
