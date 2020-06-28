@@ -135,27 +135,31 @@ class App extends Component {
               Clear all reminders
             </button>
           </div>
-          <div className="filters-group" onChange={e => this.applySortFilter(e)}>
-            {sortFilterTypes.map(filter => (
-              <FilterSelector
-                key={filter.type}
-                group="sort"
-                label={filter.label}
-                type={filter.type}
-                selected={currentSortFilter}
-              />
-            ))}
-          </div>
-          <div className="filters-group" onChange={e => this.applyVisibilityFilter(e)}>
-            {visibilityFilterTypes.map(filter => (
-              <FilterSelector
-                key={filter.type}
-                group="visibility"
-                label={filter.label}
-                type={filter.type}
-                selected={currentVisibilityFilter}
-              />
-            ))}
+          <div className="filters">
+            <div className="filters-group" onChange={e => this.applyVisibilityFilter(e)}>
+              <span>Visibility: </span>
+              {visibilityFilterTypes.map(filter => (
+                <FilterSelector
+                  key={filter.type}
+                  group="visibility"
+                  label={filter.label}
+                  type={filter.type}
+                  selected={currentVisibilityFilter}
+                />
+              ))}
+            </div>
+            <div className="filters-group" onChange={e => this.applySortFilter(e)}>
+              <span>Sort: </span>
+              {sortFilterTypes.map(filter => (
+                <FilterSelector
+                  key={filter.type}
+                  group="sort"
+                  label={filter.label}
+                  type={filter.type}
+                  selected={currentSortFilter}
+                />
+              ))}
+            </div>
           </div>
         </form>
         <RemindersList

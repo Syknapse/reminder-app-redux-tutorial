@@ -1,6 +1,7 @@
 import React from 'react'
 import moment from 'moment'
 import { ReminderItem } from '../index'
+import './remindersList.css'
 
 const RemindersList = ({ reminders, onToggle, onDelete }) => {
   const isPast = date => moment(new Date(date)).isBefore()
