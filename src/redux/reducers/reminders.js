@@ -1,6 +1,5 @@
 import { ADD_REMINDER, TOGGLE_REMINDER, DELETE_REMINDER, CLEAR_REMINDERS } from '../types/index'
-
-const save = array => localStorage.setItem('reminders', JSON.stringify(array))
+import save from '../../utils/save'
 
 const reminders = (state = [], action) => {
   const { text, dueDate, id, timestamp, isComplete } = action
@@ -19,21 +18,21 @@ const reminders = (state = [], action) => {
           isComplete,
         },
       ]
-      save(reminders)
+      save({ reminders })
       return reminders
     case TOGGLE_REMINDER:
       const [selectedReminder] = state.filter(reminder => reminder.id === id)
       selectedReminder.isComplete = !selectedReminder.isComplete
       reminders = [...state]
-      save(reminders)
+      save({ reminders })
       return reminders
     case DELETE_REMINDER:
       reminders = state.filter(reminder => reminder.id !== id)
-      save(reminders)
+      save({ reminders })
       return reminders
     case CLEAR_REMINDERS:
       reminders = []
-      save(reminders)
+      save({ reminders })
       return reminders
     default:
       return state
