@@ -26,6 +26,7 @@ class App extends Component {
   add() {
     const { text, dueDate, timestamp, isComplete } = this.state
     if (text) this.props.addReminder(text, dueDate, timestamp, isComplete)
+    this.setState({ text: '' })
   }
 
   toggle(id) {
@@ -43,6 +44,14 @@ class App extends Component {
   handleDate(e) {
     const value = e.target.value
     this.setState({ dueDate: value, timestamp: moment(value).unix() })
+  }
+
+  handleEnter(e) {
+    const key = e.keyCode
+    if (key === 13) {
+      e.preventDefault()
+      this.add()
+    }
   }
 
   applySortFilter(e) {
@@ -111,24 +120,26 @@ class App extends Component {
 
   render() {
     const { currentSortFilter, currentVisibilityFilter } = this.props
+    const { text } = this.state
     const sortFilterTypes = this.sortFilterTypes()
     const visibilityFilterTypes = this.visibilityFilterTypes()
 
     return (
       <main className="app">
         <header>Reminder App</header>
-        <form>
+        <form onKeyDown={e => this.handleEnter(e)}>
           <input
             className="reminder-input"
             placeholder="Type a reminder ..."
             onChange={e => this.setState({ text: e.target.value })}
+            value={text}
           />
           <div className="date-group">
             <label htmlFor="date">Add date</label>
-            <input id="date" title="Add due date" type="datetime-local" onChange={e => this.handleDate(e)} />
+            <input id="date" title="Add due date" type="date" onChange={e => this.handleDate(e)} />
           </div>
           <div className="button-group">
-            <button type="button" onClick={() => this.add()}>
+            <button type="button" onClick={() => this.add()} disabled={text.length === 0}>
               Save reminder
             </button>
             <button className="delete" type="button" onClick={() => this.clearAll()}>

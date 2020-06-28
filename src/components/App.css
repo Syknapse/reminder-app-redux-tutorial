@@ -60,10 +60,12 @@ form {
 .filters {
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
   margin: 4px 0;
 }
 
 .filters-group {
+  display: flex;
   font-size: 0.8em;
   padding: 8px 0;
 }
@@ -71,4 +73,12 @@ form {
 .filters-group span {
   font-weight: 600;
   margin-right: 4px;
+}
+
+.filters-group input {
+  margin-right: 12px;
+}
+
+.filters-group input:last-of-type {
+  margin-right: 0;
 }

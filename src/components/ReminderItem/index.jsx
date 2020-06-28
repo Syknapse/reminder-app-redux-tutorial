@@ -6,9 +6,9 @@ import './reminderItem.css'
 
 const ReminderItem = ({ id, text, dueDate, isComplete, onToggle, onDelete }) => (
   <li key={id} title={isComplete ? `Completed ${text}!` : 'Still pending'}>
-    <div className={clsx('status', isComplete && 'completed')} title="Toggle status" onClick={onToggle}>
+    <button className={clsx('status', isComplete && 'completed')} title="Toggle status" onClick={onToggle}>
       {checkMark}
-    </div>
+    </button>
     <div className="text">
       <p>{text}</p>
       <p className="due-date">{dueDate && moment(new Date(dueDate)).fromNow()}</p>
