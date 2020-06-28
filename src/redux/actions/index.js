@@ -1,17 +1,27 @@
 import {
   ADD_REMINDER,
+  TOGGLE_REMINDER,
   DELETE_REMINDER,
   CLEAR_REMINDERS,
   SET_SORT_FILTER,
   SET_VISIBILITY_FILTER,
 } from '../types/index'
 
-export const addReminder = (text, dueDate, timestamp) => {
+export const addReminder = (text, dueDate, timestamp, isComplete) => {
   const action = {
     type: ADD_REMINDER,
     text,
     dueDate,
     timestamp,
+    isComplete,
+  }
+  return action
+}
+
+export const toggleReminder = id => {
+  const action = {
+    type: TOGGLE_REMINDER,
+    id,
   }
   return action
 }

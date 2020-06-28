@@ -2,38 +2,36 @@ import React from 'react'
 import moment from 'moment'
 import { ReminderItem } from '../index'
 
-const RemindersList = ({ reminders, onDelete }) => {
+const RemindersList = ({ reminders, onToggle, onDelete }) => {
   const isPast = date => moment(new Date(date)).isBefore()
+  const pastReminders = reminders.filter(reminder => isPast(reminder.dueDate))
+  const futureReminders = reminders.filter(reminder => !isPast(reminder.dueDate))
 
   return (
     <ul className="reminders-list">
-      {reminders.map(reminder => {
-        if (!isPast(reminder.dueDate)) {
-          return (
-            <ReminderItem
-              key={reminder.id}
-              id={reminder.id}
-              text={reminder.text}
-              dueDate={reminder.dueDate}
-              onDelete={() => onDelete(reminder.id)}
-            />
-          )
-        } else return null
-      })}
-      <hr />
-      {reminders.map(reminder => {
-        if (isPast(reminder.dueDate)) {
-          return (
-            <ReminderItem
-              key={reminder.id}
-              id={reminder.id}
-              text={reminder.text}
-              dueDate={reminder.dueDate}
-              onDelete={() => onDelete(reminder.id)}
-            />
-          )
-        } else return null
-      })}
+      {futureReminders.map(reminder => (
+        <ReminderItem
+          key={reminder.id}
+          id={reminder.id}
+          text={reminder.text}
+          dueDate={reminder.dueDate}
+          isComplete={reminder.isComplete}
+          onToggle={() => onToggle(reminder.id)}
+          onDelete={() => onDelete(reminder.id)}
+        />
+      ))}
+      {pastReminders.length > 0 && <hr />}
+      {pastReminders.map(reminder => (
+        <ReminderItem
+          key={reminder.id}
+          id={reminder.id}
+          text={reminder.text}
+          dueDate={reminder.dueDate}
+          isComplete={reminder.isComplete}
+          onToggle={() => onToggle(reminder.id)}
+          onDelete={() => onDelete(reminder.id)}
+        />
+      ))}
     </ul>
   )
 }

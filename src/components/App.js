@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import {
   addReminder,
+  toggleReminder,
   deleteReminder,
   clearReminders,
   setSortFilter,
@@ -18,12 +19,17 @@ class App extends Component {
       text: '',
       dueDate: '',
       timestamp: '',
+      isComplete: false,
     }
   }
 
   add() {
-    const { text, dueDate, timestamp } = this.state
-    if (text) this.props.addReminder(text, dueDate, timestamp)
+    const { text, dueDate, timestamp, isComplete } = this.state
+    if (text) this.props.addReminder(text, dueDate, timestamp, isComplete)
+  }
+
+  toggle(id) {
+    this.props.toggleReminder(id)
   }
 
   delete(id) {
@@ -85,9 +91,9 @@ class App extends Component {
 
   filterVisibleReminders(reminders, filter) {
     if (filter === 'DONE') {
-      return reminders.filter(item => moment(new Date(item.timestamp)).isAfter())
+      return reminders.filter(reminder => reminder.isComplete)
     } else if (filter === 'PENDING') {
-      return reminders.filter(item => moment(new Date(item.timestamp)).isBefore())
+      return reminders.filter(reminder => !reminder.isComplete)
     } else {
       return reminders
     }
@@ -104,9 +110,9 @@ class App extends Component {
   }
 
   render() {
+    const { currentSortFilter, currentVisibilityFilter } = this.props
     const sortFilterTypes = this.sortFilterTypes()
     const visibilityFilterTypes = this.visibilityFilterTypes()
-    console.log(this.props)
 
     return (
       <main className="app">
@@ -131,18 +137,30 @@ class App extends Component {
           </div>
           <div className="filters-group" onChange={e => this.applySortFilter(e)}>
             {sortFilterTypes.map(filter => (
-              <FilterSelector key={filter.type} label={filter.label} type={filter.type} />
+              <FilterSelector
+                key={filter.type}
+                group="sort"
+                label={filter.label}
+                type={filter.type}
+                selected={currentSortFilter}
+              />
             ))}
-            <input id="oldest" type="radio" name="sort" value="oldest" />
           </div>
           <div className="filters-group" onChange={e => this.applyVisibilityFilter(e)}>
             {visibilityFilterTypes.map(filter => (
-              <FilterSelector key={filter.type} label={filter.label} type={filter.type} />
+              <FilterSelector
+                key={filter.type}
+                group="visibility"
+                label={filter.label}
+                type={filter.type}
+                selected={currentVisibilityFilter}
+              />
             ))}
           </div>
         </form>
         <RemindersList
           reminders={this.filterReminders(this.props)}
+          onToggle={id => this.toggle(id)}
           onDelete={id => this.delete(id)}
         />
       </main>
@@ -160,6 +178,7 @@ function mapStateToProps(state) {
 
 export default connect(mapStateToProps, {
   addReminder,
+  toggleReminder,
   deleteReminder,
   clearReminders,
   setSortFilter,

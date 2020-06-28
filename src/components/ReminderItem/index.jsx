@@ -1,8 +1,9 @@
 import React from 'react'
 import moment from 'moment'
 
-const ReminderItem = ({ id, text, dueDate, onDelete }) => (
+const ReminderItem = ({ id, text, dueDate, isComplete, onToggle, onDelete }) => (
   <li key={id}>
+    <div onClick={onToggle}>{isComplete ? 'done' : 'pending'}-- </div>
     <div className="text">
       <p>{text}</p>
       <p className="due-date">{dueDate && moment(new Date(dueDate)).fromNow()}</p>
