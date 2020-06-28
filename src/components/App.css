@@ -57,39 +57,28 @@ form {
   background: rgba(194, 77, 62, 0.46);
 }
 
-.reminders-list {
-  padding: 0 24px;
-}
-
-.reminders-list li {
-  list-style: none;
+.filters {
   display: flex;
   justify-content: space-between;
-  min-height: 46px;
-  margin-bottom: 8px;
-  box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.051);
+  flex-wrap: wrap;
+  margin: 4px 0;
 }
 
-.reminders-list p {
-  margin: 0;
-}
-
-.reminders-list .remove {
-  background: none;
-  border: none;
-  margin: 0 16px 0 auto;
-  width: 44px;
-}
-
-.reminders-list .remove:hover {
-  color: rgb(194, 46, 46);
-}
-
-.reminders-list .due-date {
-  color: gray;
-}
-
-.sort-group {
+.filters-group {
+  display: flex;
   font-size: 0.8em;
   padding: 8px 0;
+}
+
+.filters-group span {
+  font-weight: 600;
+  margin-right: 4px;
+}
+
+.filters-group input {
+  margin-right: 12px;
+}
+
+.filters-group input:last-of-type {
+  margin-right: 0;
 }

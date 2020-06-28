@@ -1,17 +1,27 @@
 import {
   ADD_REMINDER,
+  TOGGLE_REMINDER,
   DELETE_REMINDER,
   CLEAR_REMINDERS,
-  SORT_BY_DATE_NEWEST,
-  SORT_BY_DATE_OLDEST,
+  SET_SORT_FILTER,
+  SET_VISIBILITY_FILTER,
 } from '../types/index'
 
-export const addReminder = (text, dueDate, timestamp) => {
+export const addReminder = (text, dueDate, timestamp, isComplete) => {
   const action = {
     type: ADD_REMINDER,
     text,
     dueDate,
     timestamp,
+    isComplete,
+  }
+  return action
+}
+
+export const toggleReminder = id => {
+  const action = {
+    type: TOGGLE_REMINDER,
+    id,
   }
   return action
 }
@@ -31,16 +41,18 @@ export const clearReminders = () => {
   return action
 }
 
-export const sortByDateNewest = () => {
+export const setSortFilter = filter => {
   const action = {
-    type: SORT_BY_DATE_NEWEST,
+    type: SET_SORT_FILTER,
+    filter,
   }
   return action
 }
 
-export const sortByDateOldest = () => {
+export const setVisibilityFilter = filter => {
   const action = {
-    type: SORT_BY_DATE_OLDEST,
+    type: SET_VISIBILITY_FILTER,
+    filter,
   }
   return action
 }
